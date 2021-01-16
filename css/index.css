@@ -1,0 +1,38 @@
+*{
+    padding:0px;
+    margin:0px;
+
+}
+
+
+
+.images {
+    
+    margin:auto;
+    width:400px;
+    overflow:hidden;
+    position: relative;
+    margin-top:15vh;
+   
+
+}
+#left , #right{
+    position:absolute;
+    top:195px;
+    z-index: 1;
+    font-size: 40px;
+    color:blue;
+    cursor: pointer;
+}
+#right{
+    left:380px;
+}
+img{
+    margin: -2px;
+}
+.circles{
+    position:absolute;
+    top:95%;
+    left:40%;
+    z-index:1;
+}
