@@ -43,18 +43,46 @@ Array.from(arryaDots).forEach(function(dots){
 
 checkVisibility();
 left.addEventListener("click",function(){
-    marginLeft=marginLeft+imgWidth;
-    wrapper.style.marginLeft= marginLeft + "px";
+    let newMargin =marginLeft;
+    let slider = setInterval(function (){
+        marginLeft=marginLeft+4;
+        wrapper.style.marginLeft= marginLeft + "px";
+        if((marginLeft-newMargin)>=imgWidth){
+            clearInterval(slider)
+            marginLeft=newMargin+imgWidth;
+            wrapper.style.marginLeft=marginLeft+"px";
+            checkVisibility();
+        }
+        
+
+    },1000/60)
+
     checkVisibility();
   
 
-})
+});
+
 right.addEventListener("click",function(){
-    marginLeft= marginLeft-imgWidth;
-    wrapper.style.marginLeft=marginLeft + "px";
+    let newMargin =marginLeft;
+    let slider = setInterval(function (){
+        marginLeft=marginLeft-4;
+        wrapper.style.marginLeft= marginLeft + "px";
+        if((newMargin-marginLeft)>=imgWidth){
+            clearInterval(slider)
+            marginLeft=newMargin-imgWidth;
+            wrapper.style.marginLeft = marginLeft + "px";
+            checkVisibility();
+        }
+        
+
+    },1000/60);
+
     checkVisibility();
-   
-})
+  
+
+});
+
+
 function checkVisibility(){
     if(marginLeft===0){
         left.style.visibility = "hidden";
