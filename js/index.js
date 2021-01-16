@@ -45,7 +45,7 @@ checkVisibility();
 left.addEventListener("click",function(){
     let newMargin =marginLeft;
     let slider = setInterval(function (){
-        marginLeft=marginLeft+4;
+        marginLeft=marginLeft+8;
         wrapper.style.marginLeft= marginLeft + "px";
         if((marginLeft-newMargin)>=imgWidth){
             clearInterval(slider)
@@ -65,7 +65,7 @@ left.addEventListener("click",function(){
 right.addEventListener("click",function(){
     let newMargin =marginLeft;
     let slider = setInterval(function (){
-        marginLeft=marginLeft-4;
+        marginLeft=marginLeft-8;
         wrapper.style.marginLeft= marginLeft + "px";
         if((newMargin-marginLeft)>=imgWidth){
             clearInterval(slider)
@@ -84,13 +84,13 @@ right.addEventListener("click",function(){
 
 
 function checkVisibility(){
-    if(marginLeft===0){
+    if(marginLeft>=0){
         left.style.visibility = "hidden";
     }
     else{
         left.style.visibility = "visible";
     }
-    if(marginLeft===(-1)*(divWidth-imgWidth)){
+    if(marginLeft<=(-1)*(divWidth-imgWidth)){
         right.style.visibility = "hidden";
     }
     else{
