@@ -32,7 +32,9 @@ Array.from(arryaDots).forEach(function(dots){
         dots.style.backgroundColor="blue";
     })
     dots.addEventListener("mouseleave",function(){
-        dots.style.backgroundColor="inherit"
+        if(dots.style.backgroundColor !="red"){
+            dots.style.backgroundColor="inherit";
+    }
     
     })
     dots.addEventListener("click",function(){
