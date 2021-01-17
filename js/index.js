@@ -24,9 +24,10 @@ for (var i=0 ;i<images.length;i++){
     circles.appendChild(dots);
 }
 var arryaDots = document.getElementsByClassName("far fa-circle");
-
+var arrayDots=[];
 /*navigation through dots */
 Array.from(arryaDots).forEach(function(dots){
+    arrayDots.push(dots);
     dots.addEventListener("mouseover",function(){
         dots.style.backgroundColor="blue";
     })
@@ -39,14 +40,20 @@ Array.from(arryaDots).forEach(function(dots){
         dots.style.backgroundColor="red";
         marginLeft = (-1)* id * imgWidth;
         wrapper.style.marginLeft = marginLeft + "px";
+        checkActive();
         checkVisibility();
+        
 
     })
     
     
 })
 
+
+
+
 checkVisibility();
+checkActive();
 
 
 /* event listeners for left and right sliders */
@@ -61,12 +68,14 @@ left.addEventListener("click",function(){
             marginLeft=newMargin+imgWidth;
             wrapper.style.marginLeft=marginLeft+"px";
             checkVisibility();
+            checkActive();
         }
         
 
     },1000/60)}
 
     checkVisibility();
+    checkActive();
   
 
 });
@@ -83,18 +92,21 @@ right.addEventListener("click",function(){
             marginLeft=newMargin-imgWidth;
             wrapper.style.marginLeft = marginLeft + "px";
             checkVisibility();
+            checkActive();
         }
         
 
     },1000/60);}
 
-    checkVisibility();
+    
   
 
 });
 
 
 let nstep = 0;
+
+
 setInterval(autoslide,4000);
 
 
@@ -130,6 +142,7 @@ function autoslide(){
                 clearInterval(slider)
 
                 checkVisibility();
+                checkActive();
             }
         
     },1000/60)
@@ -158,4 +171,14 @@ function checkVisibility(){
     else{
         right.style.visibility="visible";
     }
+}
+
+
+
+function checkActive(){
+    let rem= marginLeft / 400;
+    arrayDots.forEach(function(dots){
+        dots.style.backgroundColor="inherit";
+    })
+    arrayDots[-rem].style.backgroundColor = "red";
 }
