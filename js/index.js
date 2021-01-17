@@ -18,7 +18,7 @@ for (var i=0 ;i<images.length;i++){
     circles.appendChild(dots);
 }
 var arryaDots = document.getElementsByClassName("far fa-circle");
-var flag=0;
+
 Array.from(arryaDots).forEach(function(dots){
     dots.addEventListener("mouseover",function(){
         dots.style.backgroundColor="blue";
@@ -42,8 +42,11 @@ Array.from(arryaDots).forEach(function(dots){
 
 
 checkVisibility();
+
+
 left.addEventListener("click",function(){
     let newMargin =marginLeft;
+    if (marginLeft%imgWidth == 0){
     let slider = setInterval(function (){
         marginLeft=marginLeft+8;
         wrapper.style.marginLeft= marginLeft + "px";
@@ -55,15 +58,51 @@ left.addEventListener("click",function(){
         }
         
 
-    },1000/60)
+    },1000/60)}
 
     checkVisibility();
   
 
 });
+let step=-8;
+setInterval(autoslide,4000);
+
+
+function autoslide(){
+   let newMargin=marginLeft;
+    if(marginLeft % imgWidth == 0){
+       switch(marginLeft){
+           case (-1*(images.length-1)*imgWidth):
+               step = 8;
+               break;
+            case (0):
+                step =-8
+                break;
+            default:
+                break;
+       }
+
+        let slider = setInterval(function (){
+            marginLeft=marginLeft+step;
+            wrapper.style.marginLeft= marginLeft + "px";
+            if((newMargin-marginLeft)>=imgWidth || (marginLeft-newMargin)>=imgWidth){
+                clearInterval(slider)
+
+                checkVisibility();
+            }
+        
+    },1000/60)
+}}
+
+
+
+
+
+
 
 right.addEventListener("click",function(){
     let newMargin =marginLeft;
+    if (marginLeft % 400 ==0){
     let slider = setInterval(function (){
         marginLeft=marginLeft-8;
         wrapper.style.marginLeft= marginLeft + "px";
@@ -75,7 +114,7 @@ right.addEventListener("click",function(){
         }
         
 
-    },1000/60);
+    },1000/60);}
 
     checkVisibility();
   
