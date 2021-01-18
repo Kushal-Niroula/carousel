@@ -29,17 +29,17 @@ var arrayDots=[];
 Array.from(arryaDots).forEach(function(dots){
     arrayDots.push(dots);
     dots.addEventListener("mouseover",function(){
-        dots.style.backgroundColor="blue";
+        dots.style.color="blue";
     })
     dots.addEventListener("mouseleave",function(){
-        if(dots.style.backgroundColor !="red"){
-            dots.style.backgroundColor="inherit";
+        if(dots.style.color !="red"){
+            dots.style.color="black";
     }
     
     })
     dots.addEventListener("click",function(){
         let id =parseInt(dots.id);
-        dots.style.backgroundColor="red";
+        dots.style.color="red";
         marginLeft = (-1)* id * imgWidth;
         wrapper.style.marginLeft = marginLeft + "px";
         checkActive();
@@ -176,11 +176,11 @@ function checkVisibility(){
 }
 
 
-
+/* this functions highlights the  currently active navigation dots */ 
 function checkActive(){
     let rem= marginLeft / 400;
     arrayDots.forEach(function(dots){
-        dots.style.backgroundColor="inherit";
+        dots.style.color="inherit";
     })
-    arrayDots[-rem].style.backgroundColor = "red";
+    arrayDots[-rem].style.color = "red";
 }
