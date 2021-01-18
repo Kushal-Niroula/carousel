@@ -1,7 +1,8 @@
 /* getting dom element and declaring margins and widths*/
+
 var wrapper = document.getElementsByClassName("image-wrapper")[0];
 var images = wrapper.getElementsByTagName("img");
-const imgWidth=400;
+const imgWidth = 400;
 const divWidth = images.length * imgWidth;
 wrapper.style.width = divWidth +"px";
 var marginLeft = 0;
@@ -13,43 +14,50 @@ var circles = document.getElementsByClassName("circles")[0];
 
 const frameRate = 1000/60;
 const animationTime = 600;
-const step = -1 * (imgWidth*frameRate/animationTime);
+const step = -1 * (imgWidth * frameRate / animationTime);
+const HOLD = 4000;
+let nstep = step;
 
 /*navigation dots */
-for (var i=0 ;i<images.length;i++){
-    let dots =document.createElement("i");
+for (var i = 0 ;i < images.length; i++){
+    let dots = document.createElement("i");
     dots.className = "far fa-circle";
     dots.setAttribute("id",`${i}dot`);
-    dots.style.padding="2px";
+    dots.style.padding = "2px";
     circles.appendChild(dots);
 }
+
+
 var arryaDots = document.getElementsByClassName("far fa-circle");
-var arrayDots=[];
+var arrayDots = [];
+
+
 /*navigation through dots */
 Array.from(arryaDots).forEach(function(dots){
+
     arrayDots.push(dots);
     dots.addEventListener("mouseover",function(){
         dots.style.color="blue";
-    })
+    });
     dots.addEventListener("mouseleave",function(){
         if(dots.style.color !="red"){
             dots.style.color="black";
     }
     
-    })
+    });
     dots.addEventListener("click",function(){
-        let id =parseInt(dots.id);
-        dots.style.color="red";
-        marginLeft = (-1)* id * imgWidth;
+        let id = parseInt(dots.id);
+        dots.style.color = "red";
+        marginLeft = (-1) * id * imgWidth;
         wrapper.style.marginLeft = marginLeft + "px";
         checkActive();
         checkVisibility();
         
 
-    })
+    });
     
     
-})
+});
 
 
 
@@ -60,15 +68,17 @@ checkActive();
 
 /* event listeners for left and right sliders */
 left.addEventListener("click",function(){
-    let newMargin =marginLeft;
-    if (marginLeft%imgWidth == 0){
-    let slider = setInterval(function (){
-        marginLeft=marginLeft-step;
-        wrapper.style.marginLeft= marginLeft + "px";
-        if((marginLeft-newMargin)>=imgWidth){
-            clearInterval(slider)
-            marginLeft=newMargin+imgWidth;
-            wrapper.style.marginLeft=marginLeft+"px";
+
+
+    let newMargin = marginLeft;
+    if (marginLeft % imgWidth == 0){
+    let sliderL = setInterval(function (){
+        marginLeft = marginLeft-step;
+        wrapper.style.marginLeft = marginLeft + "px";
+        if((marginLeft - newMargin) >= imgWidth){
+            clearInterval(sliderL)
+            marginLeft = newMargin + imgWidth;
+            wrapper.style.marginLeft = marginLeft + "px";
             checkVisibility();
             checkActive();
         }
@@ -83,15 +93,18 @@ left.addEventListener("click",function(){
 });
 
 
+
+
 right.addEventListener("click",function(){
-    let newMargin =marginLeft;
-    if (marginLeft % 400 ==0){
-    let slider = setInterval(function (){
-        marginLeft=marginLeft+step;
-        wrapper.style.marginLeft= marginLeft + "px";
-        if((newMargin-marginLeft)>=imgWidth){
-            clearInterval(slider)
-            marginLeft=newMargin-imgWidth;
+
+    let newMargin = marginLeft;
+    if (marginLeft % 400 == 0){
+    let sliderR = setInterval(function (){
+        marginLeft = marginLeft + step;
+        wrapper.style.marginLeft = marginLeft + "px";
+        if((newMargin-marginLeft) >= imgWidth){
+            clearInterval(sliderR);
+            marginLeft=newMargin - imgWidth;
             wrapper.style.marginLeft = marginLeft + "px";
             checkVisibility();
             checkActive();
@@ -106,22 +119,22 @@ right.addEventListener("click",function(){
 });
 
 
-let nstep = 0;
 
 
-setInterval(autoslide,4000);
+
+setInterval(autoSlide,HOLD);
 
 
 /* this function performs autosliding */
 /* parameters none */
 /* uses animation time  , framerate , holdtime to animate */
-function autoslide(){
+function autoSlide(){
    
-   let newMargin=marginLeft;
+   let newMargin = marginLeft;
     if(marginLeft % imgWidth == 0){
        switch(marginLeft){
-           case (-1*(images.length-1)*imgWidth):
-            nstep= -1*step;
+           case (-1 * (images.length - 1) * imgWidth):
+            nstep= -1 * step;
                break;
             case (0):
              nstep = step;
@@ -131,17 +144,17 @@ function autoslide(){
        }
 
         let slider = setInterval(function (){
-            marginLeft=marginLeft + nstep;
-            wrapper.style.marginLeft= marginLeft + "px";
-            if((newMargin-marginLeft)>=imgWidth || (marginLeft-newMargin)>=imgWidth){
-                if (nstep>0){
-                    marginLeft = newMargin +imgWidth;
+            marginLeft = marginLeft + nstep;
+            wrapper.style.marginLeft = marginLeft + "px";
+            if((newMargin - marginLeft) >= imgWidth || (marginLeft - newMargin) >= imgWidth){
+                if (nstep > 0){
+                    marginLeft = newMargin + imgWidth;
                 }
                 else{
                     marginLeft = newMargin-imgWidth;
                 }
                 wrapper.style.marginLeft = marginLeft + "px";
-                clearInterval(slider)
+                clearInterval(slider);
 
                 checkVisibility();
                 checkActive();
@@ -161,26 +174,31 @@ function autoslide(){
 /* this function checks if the right and left sliders should be visible */
 /* if we reach the end of the image list , respective slider sign isnt visible */
 function checkVisibility(){
-    if(marginLeft>=0){
+
+    if(marginLeft >= 0){
         left.style.visibility = "hidden";
     }
     else{
         left.style.visibility = "visible";
     }
-    if(marginLeft<=(-1)*(divWidth-imgWidth)){
+    if(marginLeft <= (-1) * (divWidth-imgWidth)){
         right.style.visibility = "hidden";
     }
     else{
-        right.style.visibility="visible";
+        right.style.visibility = "visible";
     }
+
 }
 
 
 /* this functions highlights the  currently active navigation dots */ 
 function checkActive(){
-    let rem= marginLeft / 400;
+
+    let rem = marginLeft / 400;
     arrayDots.forEach(function(dots){
-        dots.style.color="inherit";
+        dots.style.color = "inherit";
     })
     arrayDots[-rem].style.color = "red";
+
 }
+
